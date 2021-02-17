@@ -118,7 +118,7 @@ namespace SuretysAPI.Controllers
                     vehicleData.CustomerId = customerId;
                     await dealerRepository.updateVehicle(vehicleData);
 
-                    #endregion
+                    #endregion 
 
                     #region Policy
 
