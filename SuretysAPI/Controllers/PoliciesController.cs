@@ -104,6 +104,8 @@ namespace SuretysAPI.Controllers
                         }
                         policyDetail.Customer.ReferenceId = Guid.NewGuid();
                         var customerInfo = _mapper.Map<Customer>(policyDetail.Customer);
+                        customerInfo.CreatorUserId = policyDetail.Vehicle.UserId;                   
+                        customerInfo.CreationTime = System.DateTime.UtcNow;
                         customerId = await dealerRepository.AddCustomer(customerInfo);
                     }
                     policyDetail.Customer.Id = customerId.GetValueOrDefault();
@@ -152,6 +154,7 @@ namespace SuretysAPI.Controllers
                         foreach (var item in additionalProductsUsed)
                         {
                             dealerRepository.DeleteadditionalProductsUsed(item.Id);
+                           
                         }
 
                         foreach (var item in policyDetail.AdditionalProducts)
@@ -159,6 +162,14 @@ namespace SuretysAPI.Controllers
                             if (item.Id == null)
                             {
                                 var additionalProductUsed = _mapper.Map<AdditionalProductsUsed>(item);
+                                if (!item.Id.HasValue || item.Id.Value == Guid.Empty)
+                                {
+                                    
+                                    additionalProductUsed.Id = System.Guid.NewGuid();
+                                   
+                                }
+                                additionalProductUsed.CreatorUserId = policyDetail.Vehicle.UserId;
+                                 additionalProductUsed.CreationTime = System.DateTime.UtcNow;
                                 await dealerRepository.InsertAdditionalProductsUsed(additionalProductUsed);
                             }
                         }

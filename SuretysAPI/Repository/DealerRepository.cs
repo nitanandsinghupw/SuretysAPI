@@ -150,6 +150,7 @@ namespace SuretysAPI.Repository
             var res = db.AdditionalProductsUseds.
                    Where(e => e.Id == Id).FirstOrDefault();
             db.AdditionalProductsUseds.Remove(res);
+            db.SaveChanges();
                              
         }
 

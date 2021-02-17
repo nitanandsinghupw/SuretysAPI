@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Suretys.Portal.AdditionalProductDetails.Dtos;
 using Suretys.Portal.CretitDetails.Dtos;
 using Suretys.Portal.CustomerDetails.Dtos;
 using Suretys.Portal.PolicyDetails.Dtos;
@@ -29,6 +30,9 @@ namespace SuretysAPI.Mapper
 
             CreateMap<Policy, CreateOrEditPolicyDto>();
             CreateMap<CreateOrEditPolicyDto, Policy>();
+
+            CreateMap<AdditionalProductsUsed, CreateOrEditAdditionalProductsUsedDto>();
+            CreateMap<CreateOrEditAdditionalProductsUsedDto, AdditionalProductsUsed>();
         }
     }
 }

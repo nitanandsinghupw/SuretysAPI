@@ -10,7 +10,7 @@ namespace Suretys.Portal.AdditionalProductDetails.Dtos
         [Range(0.00000, double.MaxValue, ErrorMessage = "Additional Product Cost must be positive number.")]
         public decimal AdditionalProductCost { get; set; }
 
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public bool IsActive { get; set; }
 
 
