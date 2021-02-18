@@ -22,6 +22,8 @@ namespace SuretysAPI.Controllers
             dealerRepository = _dealerRepository;
             _mapper = mapper;
         }
+
+
         [HttpPost]
         public async Task<SavePolicyDetailOutput> Save([FromBody] CreateOrEditPolicyDetailDto policyDetail)
         {
@@ -29,7 +31,6 @@ namespace SuretysAPI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-
 
                     #region Vehicle
 
@@ -49,8 +50,6 @@ namespace SuretysAPI.Controllers
                     }
                     Guid? vehicleId = policyDetail.Vehicle.Id;
                     #endregion
-
-
 
                     #region Credit
                     policyDetail.Credit.VehicleId = vehicleId;
@@ -118,6 +117,8 @@ namespace SuretysAPI.Controllers
                     var vehicleData = dealerRepository.GetVehicle(vehicleId.Value);
                     policyDetail.Vehicle.CustomerId = customerId;
                     vehicleData.CustomerId = customerId;
+                    vehicleData.LastModifierUserId = policyDetail.Vehicle.UserId;
+                    vehicleData.LastModificationTime = System.DateTime.UtcNow;
                     await dealerRepository.updateVehicle(vehicleData);
 
                     #endregion 
@@ -141,6 +142,12 @@ namespace SuretysAPI.Controllers
                     }
                     else
                     {
+                        policyDetailsData.LastModificationTime = System.DateTime.UtcNow;
+                        policyDetailsData.AccountScoreReferenceNumber = Guid.NewGuid();
+                        policyDetailsData.PolicyStage = "Vehicle";
+                        policyDetailsData.PolicyStep = 2;
+                        policyDetailsData.LastModifierUserId = policyDetail.Vehicle.UserId;
+                        policyDetailsData.IsEdit = true;
                         await dealerRepository.updarepolicy(policyDetailsData);
                     }
                     #endregion

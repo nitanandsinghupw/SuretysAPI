@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SuretysAPI.Helper;
 using SuretysAPI.Mapper;
 using SuretysAPI.Model;
 using SuretysAPI.Repository;
@@ -50,6 +51,7 @@ namespace SuretysAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.ConfigureExceptionHandler();
 
             app.UseHttpsRedirection();
 

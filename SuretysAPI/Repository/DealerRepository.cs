@@ -129,6 +129,7 @@ namespace SuretysAPI.Repository
         {
             if (db != null)
             {
+
                 db.Policies.Update(policy);
                 await db.SaveChangesAsync();
 
